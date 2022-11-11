@@ -1,4 +1,6 @@
 import { getRequest } from './interface.js'
+import { getAuthorization } from './authorization.js'
+
 
 class Spektrix {
 
@@ -12,13 +14,13 @@ class Spektrix {
 
     async events() {
         let events = await getRequest('events')
-        this.events = events
+        return events
     }
 
 
 }
 
 let apiTesting = new Spektrix
-await apiTesting.events()
-console.log(apiTesting.events[0])
+let apiRes = await apiTesting.events()
+console.log(apiRes[0])
 
