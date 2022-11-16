@@ -1,23 +1,28 @@
-import axios from 'axios';
-import { getAuthorization } from './authorization.js';
+import SpektrixRequest from './interface.js'
+import * as dotenv from 'dotenv'
 
-export default class SpektrixRequest {
-    constructor(config = {domain: 'system.spektrix.com', clientName: 'apitesting', username: '', secretKey: ''}) {
-        this.domain = config.domain
-        this.clientName = config.clientName
-        this.username = config.username
-        this.secretKey = config.secretKey
-        this.clientUrl = `https://${this.domain}/${this.clientName}/api/v3/`
+dotenv.config()
+
+class Spektrix {
+
+    constructor({domain, clientName, username, secretKey}) {
+        this.spektrixRequest = new SpektrixRequest({
+            domain: domain, 
+            clientName: clientName,
+            username: username,
+            secretKey: secretKey
+        })
     }
 
-    async getRequest(endpoint, auth = false) {
-        const datetime = new Date().toUTCString()
-        let authHeader = auth ? getAuthorization('GET', this.username, datetime, this.secretKey, this.clientUrl + endpoint, null):null
-        try {
-            const res = await axios.get(`https://${this.domain}/${this.clientName}/api/v3/${endpoint}`, {headers: {'Authorization': authHeader, 'Date': datetime, 'Host': this.domain}})
-            return res.data
-        } catch (error) {
-            console.log(error)
-        }
+    async customers() {
+        let customer = await this.spektrixRequest.getRequest('customers?email=theo.pacun@spektrix.com', true)
+        return customer
     }
 }
+
+let apiTesting = new Spektrix({domain: 'system.spektrix.com', clientName: 'apitesting', username: process.env.API_USERNAME, secretKey: process.env.SECRETKEY})
+let apiRes = await apiTesting.customers()
+console.log(apiRes)
+
+
+
