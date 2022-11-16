@@ -1,8 +1,7 @@
 import SpektrixRequest from './interface.js'
-import { getAuthorization } from './authorization.js'
 import * as dotenv from 'dotenv'
-dotenv.config()
 
+dotenv.config()
 
 class Spektrix {
 
@@ -15,17 +14,15 @@ class Spektrix {
         })
     }
 
-    async events() {
-        let events = await this.spektrixRequest.getRequest('customers?email=theo.pacun@spektrix.com', true)
-        return events
+    async customers() {
+        let customer = await this.spektrixRequest.getRequest('customers?email=theo.pacun@spektrix.com', true)
+        return customer
     }
-
-
 }
 
 let apiTesting = new Spektrix({domain: 'system.spektrix.com', clientName: 'apitesting', username: process.env.USERNAME, secretKey: process.env.SECRETKEY})
-let apiRes = await apiTesting.events()
-console.log(apiRes[0])
+let apiRes = await apiTesting.customers()
+console.log(apiRes)
 
 
 
