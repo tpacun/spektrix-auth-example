@@ -20,7 +20,7 @@ class Spektrix {
     }
 }
 
-let apiTesting = new Spektrix({domain: 'system.spektrix.com', clientName: 'apitesting', username: process.env.USERNAME, secretKey: process.env.SECRETKEY})
+let apiTesting = new Spektrix({domain: 'system.spektrix.com', clientName: 'apitesting', username: process.env.API_USERNAME, secretKey: process.env.SECRETKEY})
 let apiRes = await apiTesting.customers()
 console.log(apiRes)
 
