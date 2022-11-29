@@ -1,4 +1,4 @@
-import SpektrixRequest from './interface.js'
+import SpektrixRequest from './requester.js'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
