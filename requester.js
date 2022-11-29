@@ -14,10 +14,21 @@ export default class SpektrixRequest {
         const datetime = new Date().toUTCString()
         let authHeader = auth ? getAuthorization('GET', this.username, datetime, this.secretKey, this.clientUrl + endpoint, null):null
         try {
-            const res = await axios.get(`https://${this.domain}/${this.clientName}/api/v3/${endpoint}`, {headers: {'Authorization': authHeader, 'Date': datetime, 'Host': this.domain}})
+            const res = await axios.get(`${this.clientUrl}${endpoint}`, {headers: {'Authorization': authHeader, 'Date': datetime, 'Host': this.domain}})
             return res.data
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    async postRequest(endpoint, auth = false, body) {
+        const datetime = new Date().toUTCString()
+        let authHeader = auth ? getAuthorization('POST', this.username, datetime, this.secretKey, this.clientUrl + endpoint, body):null
+        try {
+            const res = await axios.post(`${this.clientUrl}${endpoint}`, body, {headers: {'Authorization': authHeader, 'Date': datetime, 'Host': this.domain}})
+            return res.data
+        } catch (error) {
+             console.log(error)
         }
     }
 }

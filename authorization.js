@@ -1,6 +1,7 @@
 import Base64 from 'crypto-js/enc-base64.js'
 import HmacSHA1 from 'crypto-js/hmac-sha1.js'
 import MD5 from 'crypto-js/md5.js'
+import UTF8 from 'crypto-js/enc-utf8.js'
 
 
 // Authorization = "SpektrixAPI3 " + LoginName + ":" + Signature;
@@ -23,8 +24,7 @@ function getString(method, date, urlString, bodyString) {
 }
 
 function getBodyString(bodyString) {
-    const encodedBody = UTF8.stringify(bodyString)
-    const md5Sum = MD5(encodedBody)
+    const md5Sum = MD5(JSON.stringify(bodyString))
     const encodedMd5 = Base64.stringify(md5Sum)
     return encodedMd5
 }
