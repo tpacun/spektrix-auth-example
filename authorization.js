@@ -1,7 +1,6 @@
 import Base64 from 'crypto-js/enc-base64.js'
 import HmacSHA1 from 'crypto-js/hmac-sha1.js'
 import MD5 from 'crypto-js/md5.js'
-import UTF8 from 'crypto-js/enc-utf8.js'
 
 
 // Authorization = "SpektrixAPI3 " + LoginName + ":" + Signature;
